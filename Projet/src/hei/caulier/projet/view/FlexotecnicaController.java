@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import hei.caulier.projet.MainApp;
+import hei.caulier.projet.PDFGenerator_Flexo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,16 +67,13 @@ public class FlexotecnicaController {
         this.dialogStage.setMaximized(true);
     }
     
-    public void handlePrintSave() {
-		System.out.println("To Printer!");
-		PrinterJob job = PrinterJob.createPrinterJob();
-				
-		if(job != null){
-			job.showPrintDialog(dialogStage); 
-			job.printPage(root);
-			job.endJob();
-		}
+    
+    @FXML
+	private void handleCreatePDF() {
+		PDFGenerator_Flexo.createPDF();
 	}
+    
+    
 
    
  
