@@ -41,7 +41,11 @@ public class MainWindowController {
 	@FXML
 	private void handleFlexo() {
 		mainApp.showFlexotecnica();
-		
+	}
+	
+	@FXML
+	private void handleOmet() {
+		mainApp.showOmet();
 	}
 
 

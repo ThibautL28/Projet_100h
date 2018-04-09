@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import hei.caulier.projet.view.FlexotecnicaController;
 import hei.caulier.projet.view.MainWindowController;
+import hei.caulier.projet.view.OmetController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.print.PageOrientation;
@@ -112,6 +113,35 @@ public class MainApp extends Application {
 
             // Set the person into the controller.
             FlexotecnicaController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        }
+    }
+    
+    public void showOmet() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Omet.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Omet");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            OmetController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
             // Show the dialog and wait until the user closes it

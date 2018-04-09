@@ -20,7 +20,7 @@
                   <Font name="Georgia" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="OMET" ButtonBar.buttonData="LEFT">
+            <Button mnemonicParsing="false" onAction="#handleOmet" text="OMET" ButtonBar.buttonData="LEFT">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
