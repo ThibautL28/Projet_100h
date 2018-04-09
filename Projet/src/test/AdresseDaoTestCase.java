@@ -28,9 +28,7 @@ public class AdresseDaoTestCase extends AbstractDaoTestCase{
 	
 	@Test
 	public void shouldListAdresses() throws Exception {
-		
 		List<Adresse> adresses = adresseDao.listAdresses();
-		
 		Assertions.assertThat(adresses).hasSize(3);
         Assertions.assertThat(adresses).extracting("idAdresse", "client.idClient", "client.nomClient", "adresseClient").containsOnly(
         		Assertions.tuple(1, 2, "deuxieme client", "premiere adresse"),
@@ -50,18 +48,15 @@ public class AdresseDaoTestCase extends AbstractDaoTestCase{
 	 
 	 @Test
 	    public void shouldAddAdresse() throws Exception {
-	        // GIVEN
 	        Adresse newAdresse = new Adresse(null, ClientService.getInstance().getClient(1), "Ma nouvelle adresse");
-	        // WHEN
 	        adresseDao.addAdresse(newAdresse);
-	        // THEN
 	        try(Connection connection = DataSourceProvider.getDataSource().getConnection();
 	            Statement statement = connection.createStatement();
 	            ResultSet resultSet = statement.executeQuery("SELECT * FROM adresse WHERE adresseClient='Ma nouvelle adresse'")){
 	            Assertions.assertThat(resultSet.next()).isTrue();
 	            Assertions.assertThat(resultSet.getInt("idAdresse")).isNotNull();
-	            Assertions.assertThat(resultSet.getString("adresseClient")).isEqualTo("Ma nouvelle adresse");
 	            Assertions.assertThat(resultSet.getInt("idClient")).isEqualTo(1);
+	            Assertions.assertThat(resultSet.getString("adresseClient")).isEqualTo("Ma nouvelle adresse");
 	            Assertions.assertThat(resultSet.next()).isFalse();
 	        }
 	    }

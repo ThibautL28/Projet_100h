@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Commande {
 
 	private Integer idCom;
-	private Client client;
 	private Adresse adresse;
 	private Machine machine;
 	private LocalDate dateCom;
@@ -28,7 +27,7 @@ public class Commande {
 	private String matiereImpression;
 	private String matiereCollage;
 	private String decoupe;
-	public Commande(Integer idCom, Client client, Adresse adresse, Machine machine, LocalDate dateCom, 
+	public Commande(Integer idCom, Adresse adresse, Machine machine, LocalDate dateCom, 
 			Integer codeAchat, String modeLivraison, String typeImpression, Integer sensImpressionRecto,
 			Integer sensImpressionVerso, Float tailleBobine, Float diamMandrin, Float diamExtBobine,
 			String developpement, String cliche, Float epaisseur, String matiere, String observations,
@@ -36,7 +35,6 @@ public class Commande {
 			String matiereCollage, String decoupe) {
 		super();
 		this.idCom = idCom;
-		this.client = client;
 		this.adresse = adresse;
 		this.machine = machine;
 		this.dateCom = dateCom;
@@ -65,12 +63,6 @@ public class Commande {
 	}
 	public void setIdCom(Integer idCom) {
 		this.idCom = idCom;
-	}
-	public Client getClient() {
-		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
 	}
 	public Machine getMachine() {
 		return machine;

@@ -17,6 +17,7 @@ public abstract class AbstractDaoTestCase {
 			statement.executeUpdate("DELETE FROM client");
 			statement.executeUpdate("DELETE FROM machine");
 			statement.executeUpdate("DELETE FROM lignecommande");
+			statement.executeUpdate("DELETE FROM article");
 
 	        this.insertDataSet(statement);
 		}

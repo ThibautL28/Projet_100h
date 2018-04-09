@@ -79,7 +79,7 @@ public class LigneCommande {
 	public Integer getNbCouleurs() {
 		return nbCouleurs;
 	}
-	public void setIdCouleurs(Integer nbCouleurs) {
+	public void setNbCouleurs(Integer nbCouleurs) {
 		this.nbCouleurs = nbCouleurs;
 	}
 	public String getModele() {
@@ -184,5 +184,4 @@ public class LigneCommande {
 	public void setEtiquetteTotal(Float etiquetteTotal) {
 		this.etiquetteTotal = etiquetteTotal;
 	}
-	
 }

@@ -18,10 +18,6 @@ public class CommandeService {
 
     private CommandeService() {
     }
-
-    /*public List<Commande> listAllCommandes() {
-            return commandeDao.listCommandes();
-    }*/
     
     public Commande getCommande(Integer id) {
         if(id == null) {

@@ -6,7 +6,6 @@ import hei.caulier.projet.DataSourceProvider;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.exceptions.ProjectRuntimeException;
 import hei.caulier.services.AdresseService;
-import hei.caulier.services.ClientService;
 import hei.caulier.services.MachineService;
 
 public class CommandeDao {
@@ -19,7 +18,6 @@ public class CommandeDao {
                 while (resultSet.next()) {
                     return new Commande(
                             resultSet.getInt("idCom"),
-                            ClientService.getInstance().getClient(resultSet.getInt("idClient")),
                             AdresseService.getInstance().getAdresse(resultSet.getInt("idAdresse")),
                             MachineService.getInstance().getMachine(resultSet.getInt("idMachine")),
                             resultSet.getDate("dateCom").toLocalDate(),
@@ -52,30 +50,29 @@ public class CommandeDao {
 	
 	public void addCommande(Commande newCommande) {
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO commande(idClient, idAdresse, idMachine, dateCom, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-            statement.setInt(1, ClientService.getInstance().getClientId(newCommande.getClient()));
-            statement.setInt(2, AdresseService.getInstance().getAdresseId(newCommande.getAdresse()));
-            statement.setInt(3, MachineService.getInstance().getMachineId(newCommande.getMachine()));
-            statement.setDate(4, Date.valueOf(newCommande.getDateCom()));
-            statement.setInt(5, newCommande.getCodeAchat());
-            statement.setString(6, newCommande.getModeLivraison());
-            statement.setString(7, newCommande.getTypeImpression());
-            statement.setInt(8, newCommande.getSensImpressionRecto());
-            statement.setInt(9, newCommande.getSensImpressionVerso());
-            statement.setFloat(10,  newCommande.getTailleBobine());
-            statement.setFloat(11,  newCommande.getDiamMandrin());
-            statement.setFloat(12,  newCommande.getDiamExtBobine());
-            statement.setString(13, newCommande.getDeveloppement());
-            statement.setString(14, newCommande.getCliche());
-            statement.setFloat(15,  newCommande.getEpaisseur());
-            statement.setString(16, newCommande.getMatiere());
-            statement.setString(17, newCommande.getObservations());
-            statement.setInt(18, newCommande.getNbEtiquettes());
-            statement.setString(19, newCommande.getRectoMatiere());
-            statement.setString(20, newCommande.getVersoMatiere());
-            statement.setString(21, newCommande.getMatiereImpression());
-            statement.setString(22, newCommande.getMatiereCollage());
-            statement.setString(23, newCommande.getDecoupe());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO commande(idAdresse, idMachine, dateCom, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            statement.setInt(1, AdresseService.getInstance().getAdresseId(newCommande.getAdresse()));
+            statement.setInt(2, MachineService.getInstance().getMachineId(newCommande.getMachine()));
+            statement.setDate(3, Date.valueOf(newCommande.getDateCom()));
+            statement.setInt(4, newCommande.getCodeAchat());
+            statement.setString(5, newCommande.getModeLivraison());
+            statement.setString(6, newCommande.getTypeImpression());
+            statement.setInt(7, newCommande.getSensImpressionRecto());
+            statement.setInt(8, newCommande.getSensImpressionVerso());
+            statement.setFloat(9,  newCommande.getTailleBobine());
+            statement.setFloat(10,  newCommande.getDiamMandrin());
+            statement.setFloat(11,  newCommande.getDiamExtBobine());
+            statement.setString(12, newCommande.getDeveloppement());
+            statement.setString(13, newCommande.getCliche());
+            statement.setFloat(14,  newCommande.getEpaisseur());
+            statement.setString(15, newCommande.getMatiere());
+            statement.setString(16, newCommande.getObservations());
+            statement.setInt(17, newCommande.getNbEtiquettes());
+            statement.setString(18, newCommande.getRectoMatiere());
+            statement.setString(19, newCommande.getVersoMatiere());
+            statement.setString(20, newCommande.getMatiereImpression());
+            statement.setString(21, newCommande.getMatiereCollage());
+            statement.setString(22, newCommande.getDecoupe());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ProjectRuntimeException("Erreur en essayant d'ajouter une commande", e);
@@ -84,11 +81,10 @@ public class CommandeDao {
 	
 	public Integer getCommandeId(Commande commande){
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM commande WHERE idClient = ? AND idAdresse = ? AND dateCom = ? AND codeAchat = ?")) {
-            statement.setInt(1, ClientService.getInstance().getClientId(commande.getClient()));
-            statement.setInt(2, AdresseService.getInstance().getAdresseId(commande.getAdresse()));
-            statement.setDate(3, Date.valueOf(commande.getDateCom()));
-            statement.setInt(4, commande.getCodeAchat());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM commande WHERE idAdresse = ? AND dateCom = ? AND codeAchat = ?")) {
+            statement.setInt(1, AdresseService.getInstance().getAdresseId(commande.getAdresse()));
+            statement.setDate(2, Date.valueOf(commande.getDateCom()));
+            statement.setInt(3, commande.getCodeAchat());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     return resultSet.getInt("idCom");

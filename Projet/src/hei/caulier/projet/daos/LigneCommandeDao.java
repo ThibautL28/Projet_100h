@@ -49,7 +49,7 @@ public class LigneCommandeDao {
 	
 	public void addLigneCommande(LigneCommande newLigneCommande) {
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO lignecommande(idCom, idArticle, largeur, nbCouleurs, modele, refPantones, nbBobines, metreTotal, couleurs, aplat, nbLangues, variete, calibre, poids, origine, traitement, categorie, pointVert, numList, codeBarre, etiquetteTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO lignecommande(idCom, idArticle, largeur, nbCouleurs, modele, refPantones, nbBobines, metreTotal, couleurs, aplat, nbLangues, variete, calibre, poids, origine, traitement, categorie, pointVert, numLot, codeBarre, etiquetteTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
         	statement.setInt(1, CommandeService.getInstance().getCommandeId(newLigneCommande.getCommande()));
             statement.setInt(2, ArticleService.getInstance().getArticleId(newLigneCommande.getArticle()));
             statement.setFloat(3,  newLigneCommande.getLargeur());
@@ -75,5 +75,22 @@ public class LigneCommandeDao {
         } catch (SQLException e) {
             throw new ProjectRuntimeException("Erreur en essayant d'ajouter une ligne", e);
         }
+    }
+	
+	public Integer getLigneCommandeId(LigneCommande ligneCommande){
+        try (Connection connection = DataSourceProvider.getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM lignecommande WHERE idCommande = ? AND idArticle = ? AND numLot = ?")) {
+            statement.setInt(1, CommandeService.getInstance().getCommandeId(ligneCommande.getCommande()));
+            statement.setInt(2, ArticleService.getInstance().getArticleId(ligneCommande.getArticle()));
+            statement.setString(3, ligneCommande.getNumLot());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getInt("idLigne");
+                }
+            }
+        } catch (SQLException e) {
+            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de la ligne de la commande", e);
+        }
+        return null;
     }
 }

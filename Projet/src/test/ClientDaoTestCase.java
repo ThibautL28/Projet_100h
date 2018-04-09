@@ -25,9 +25,7 @@ private ClientDao clientDao = new ClientDao();
 	
 	@Test
     public void shouldListClients() throws Exception {
-        // WHEN
         List<Client> clients = clientDao.listClients();
-        // THEN
         Assertions.assertThat(clients).hasSize(3);
         Assertions.assertThat(clients).extracting("idClient", "nomClient").containsOnly(
                 Assertions.tuple(1, "premier client"),
@@ -38,16 +36,14 @@ private ClientDao clientDao = new ClientDao();
 	
 	@Test
     public void shouldGetClient() throws Exception {
-        // WHEN
         Client client = clientDao.getClient(1);
-        // THEN
         Assertions.assertThat(client).isNotNull();
         Assertions.assertThat(client.getIdClient()).isEqualTo(1);
         Assertions.assertThat(client.getNomClient()).isEqualTo("premier client");
     }
 	
 	 @Test
-	 public void shouldAddAdresse() throws Exception {
+	 public void shouldAddClient() throws Exception {
 	    Client newClient = new Client(null, "Mon nouveau client");
 	    clientDao.addClient(newClient);
 	    try(Connection connection = DataSourceProvider.getDataSource().getConnection();

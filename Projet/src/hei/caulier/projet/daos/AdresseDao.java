@@ -57,8 +57,8 @@ public class AdresseDao {
     public void addAdresse(Adresse newAdresse) {
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO adresse(idClient, adresseClient) VALUES (?, ?)")) {
-            statement.setInt(2, ClientService.getInstance().getClientId(newAdresse.getClient()));
-        	statement.setString(1, newAdresse.getAdresseClient());
+            statement.setInt(1, ClientService.getInstance().getClientId(newAdresse.getClient()));
+        	statement.setString(2, newAdresse.getAdresseClient());
             statement.executeUpdate();
         } catch (SQLException e) {
 			throw new ProjectRuntimeException("Erreur en essayant d'ajouter une adresse", e);

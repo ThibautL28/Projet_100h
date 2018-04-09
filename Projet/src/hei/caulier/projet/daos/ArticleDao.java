@@ -66,7 +66,7 @@ public class ArticleDao {
 	
 	public Integer getArticleId(Article article){
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM adresse WHERE refArticle = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM article WHERE refArticle = ?")) {
             statement.setString(1, article.getRefArticle());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -74,10 +74,8 @@ public class ArticleDao {
                 }
             }
         } catch (SQLException e) {
-            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de l'adresse", e);
+            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de l'article", e);
         }
         return null;
     }
-	
-	//delete à mettre ?
 }
