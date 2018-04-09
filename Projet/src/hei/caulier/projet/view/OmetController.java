@@ -2,6 +2,8 @@ package hei.caulier.projet.view;
 
 import java.io.IOException;
 
+import hei.caulier.projet.PDFGenerator_Flexo;
+import hei.caulier.projet.PDFGenerator_Omet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -66,15 +68,9 @@ public class OmetController {
 		this.dialogStage.setMaximized(true);
 	}
 
-	public void handlePrintSave() {
-		System.out.println("To Printer!");
-		PrinterJob job = PrinterJob.createPrinterJob();
-
-		if(job != null){
-			job.showPrintDialog(dialogStage); 
-			job.printPage(root);
-			job.endJob();
-		}
+	@FXML
+	private void handleCreatePDF() {
+		PDFGenerator_Omet.createPDF();
 	}
 
 

@@ -20,8 +20,8 @@
       <Separator layoutX="46.0" layoutY="42.0" prefHeight="0.0" prefWidth="412.0" styleClass="black-separator" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: lightblue;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#handlePrintSave" text="ENREGISTRER" />
-            <Button mnemonicParsing="false" text="IMPRIMER" />
+          <Button mnemonicParsing="false" text="ENREGISTRER" />
+            <Button mnemonicParsing="false" onAction="#handleCreatePDF" text="IMPRIMER" />
         </buttons>
          <padding>
             <Insets right="20.0" />
