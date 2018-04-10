@@ -10,9 +10,6 @@ import org.junit.Test;
 
 import hei.caulier.projet.DataSourceProvider;
 import hei.caulier.projet.daos.MachineDao;
-import hei.caulier.projet.entities.Article;
-import hei.caulier.projet.entities.Client;
-import hei.caulier.projet.entities.LigneCommande;
 import hei.caulier.projet.entities.Machine;
 
 public class MachineDaoTestCase extends AbstractDaoTestCase{
