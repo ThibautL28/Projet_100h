@@ -16,6 +16,7 @@ import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -29,10 +30,16 @@ public class FlexotecnicaController {
 	private Stage dialogStage;
 	Parent root;
 	
+	@FXML
+	private TextField test;
 	
    
 
-    /**
+ 
+
+
+
+	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      * @throws IOException 
@@ -70,10 +77,13 @@ public class FlexotecnicaController {
     
     @FXML
 	private void handleCreatePDF() {
-		PDFGenerator_Flexo.createPDF();
+    	System.out.println(test.getText());
+		PDFGenerator_Flexo.createPDF(test.getText());
 	}
-    
-    
+
+	
+
+	  
 
    
  

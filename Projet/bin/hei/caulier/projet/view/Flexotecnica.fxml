@@ -30,7 +30,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField layoutX="133.0" layoutY="51.0" prefHeight="26.0" prefWidth="154.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="51.0" />
+      <TextField fx:id="test" layoutX="133.0" layoutY="51.0" prefHeight="26.0" prefWidth="154.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="51.0" />
       <Label layoutX="231.0" layoutY="55.0" prefHeight="18.0" prefWidth="67.0" text="DEPART :" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="55.0">
          <font>
             <Font size="14.0" />

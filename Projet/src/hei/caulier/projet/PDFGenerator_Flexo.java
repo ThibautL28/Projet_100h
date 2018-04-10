@@ -29,6 +29,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import hei.caulier.projet.view.FlexotecnicaController;
 import javafx.scene.text.TextAlignment;
 
 
@@ -44,7 +45,7 @@ public class PDFGenerator_Flexo {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public static void createPDF() {
+    public static void createPDF(String oui) {
         try {
         	File destination = new File("C:\\AppBonsFab\\Flexo"); 
         	destination.mkdirs();
@@ -121,8 +122,11 @@ public class PDFGenerator_Flexo {
             canvas.lineTo(520, 428);
             canvas.stroke();
             canvas.restoreState();
+            
+           
+            
             // Adding text with ColumnText.showTextAligned()
-            Phrase phrase = new Phrase("fou connard", f);
+            Phrase phrase = new Phrase(oui, f);
             Phrase zcent = new Phrase("0 ; 0", f);
             Phrase cent = new Phrase("100 ; 100", f);
             Phrase dcent = new Phrase("200 ; 200", f);
