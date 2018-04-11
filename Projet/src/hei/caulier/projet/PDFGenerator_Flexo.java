@@ -124,6 +124,7 @@ public class PDFGenerator_Flexo {
             canvas.restoreState();
             
            
+           
             
             // Adding text with ColumnText.showTextAligned()
             Phrase phrase = new Phrase(oui, f);

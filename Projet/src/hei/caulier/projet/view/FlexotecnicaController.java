@@ -139,11 +139,6 @@ public class FlexotecnicaController {
 		PDFGenerator_Flexo.createPDF(chAdresse.getText());
 	}
 
-	
-
-	  
-
-   
  
 
    
