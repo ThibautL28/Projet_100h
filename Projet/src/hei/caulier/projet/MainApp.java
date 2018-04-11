@@ -111,7 +111,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Set the dialog into the controller.
             FlexotecnicaController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
@@ -140,7 +140,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Set the dialog into the controller.
             OmetController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
