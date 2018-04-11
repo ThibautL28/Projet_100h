@@ -1,17 +1,12 @@
 package hei.caulier.projet.daos;
 
 import java.sql.*;
-import java.util.Optional;
-import hei.caulier.projet.*;
-
-import com.mysql.jdbc.SocketMetadata.Helper;
 
 import hei.caulier.projet.DataSourceProvider;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.exceptions.ProjectRuntimeException;
 import hei.caulier.services.AdresseService;
 import hei.caulier.services.MachineService;
-import jdk.internal.jline.internal.Nullable;
 
 public class CommandeDao {
 	
