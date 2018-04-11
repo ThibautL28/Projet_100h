@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 public class Commande {
 
+	
 	private Integer idCom;
 	private Adresse adresse;
 	private Machine machine;
 	private LocalDate dateCom;
+	private String depart;
 	private Integer codeAchat;
 	private String modeLivraison;
 	private String typeImpression;
@@ -27,17 +29,19 @@ public class Commande {
 	private String matiereImpression;
 	private String matiereCollage;
 	private String decoupe;
-	public Commande(Integer idCom, Adresse adresse, Machine machine, LocalDate dateCom, 
+	private Integer coteImpression;
+	public Commande(Integer idCom, Adresse adresse, Machine machine, LocalDate dateCom, String depart,
 			Integer codeAchat, String modeLivraison, String typeImpression, Integer sensImpressionRecto,
 			Integer sensImpressionVerso, Float tailleBobine, Float diamMandrin, Float diamExtBobine,
 			String developpement, String cliche, Float epaisseur, String matiere, String observations,
 			Integer nbEtiquettes, String rectoMatiere, String versoMatiere, String matiereImpression,
-			String matiereCollage, String decoupe) {
+			String matiereCollage, String decoupe, Integer coteImpression) {
 		super();
 		this.idCom = idCom;
 		this.adresse = adresse;
 		this.machine = machine;
 		this.dateCom = dateCom;
+		this.depart = depart;
 		this.codeAchat = codeAchat;
 		this.modeLivraison = modeLivraison;
 		this.typeImpression = typeImpression;
@@ -57,6 +61,7 @@ public class Commande {
 		this.matiereImpression = matiereImpression;
 		this.matiereCollage = matiereCollage;
 		this.decoupe = decoupe;
+		this.coteImpression = coteImpression;
 	}
 	public Integer getIdCom() {
 		return idCom;
@@ -75,6 +80,12 @@ public class Commande {
 	}
 	public void setDateCom(LocalDate dateCom) {
 		this.dateCom = dateCom;
+	}
+	public String getDepart() {
+		return depart;
+	}
+	public void setDepart(String depart) {
+		this.depart = depart;
 	}
 	public Adresse getAdresse() {
 		return adresse;
@@ -195,6 +206,12 @@ public class Commande {
 	}
 	public void setDecoupe(String decoupe) {
 		this.decoupe = decoupe;
+	}
+	public Integer getCoteImpression() {
+		return coteImpression;
+	}
+	public void setCoteImpression(Integer coteImpression) {
+		this.coteImpression = coteImpression;
 	}
 	
 	

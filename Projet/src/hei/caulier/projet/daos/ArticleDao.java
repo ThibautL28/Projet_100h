@@ -78,4 +78,19 @@ public class ArticleDao {
         }
         return null;
     }
+	
+	public Integer getArticleIdFromString(String codeArticle){
+        try (Connection connection = DataSourceProvider.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM article WHERE refArticle = ?")) {
+            statement.setString(1, codeArticle);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getInt("idArticle");
+                }
+            }
+        } catch (SQLException e) {
+            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de l'article", e);
+        }
+        return null;
+    }
 }

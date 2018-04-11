@@ -79,5 +79,20 @@ public class AdresseDao {
         }
         return null;
     }
+    
+    public Integer getAdresseIdFromString(String adresse){
+        try (Connection connection = DataSourceProvider.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM adresse WHERE adresseClient = ?")) {
+            statement.setString(1, adresse);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getInt("idAdresse");
+                }
+            }
+        } catch (SQLException e) {
+            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de l'adresse", e);
+        }
+        return null;
+    }
 }
 

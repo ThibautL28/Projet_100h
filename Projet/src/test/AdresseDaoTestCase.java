@@ -60,4 +60,12 @@ public class AdresseDaoTestCase extends AbstractDaoTestCase{
 	            Assertions.assertThat(resultSet.next()).isFalse();
 	        }
 	    }
+	 
+	 @Test
+	    public void shouldGetAdresseIdFromString() throws Exception {
+	        Integer adresseId = adresseDao.getAdresseIdFromString("premiere adresse");
+	        Assertions.assertThat(adresseId).isNotNull();
+	        Assertions.assertThat(adresseId).isEqualTo(1);
+	        Assertions.assertThat(adresseDao.getAdresse(adresseId).getAdresseClient()).isEqualTo("premiere adresse");
+	    }
 }

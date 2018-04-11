@@ -230,14 +230,14 @@
       <TextField fx:id="chModele" layoutX="560.0" layoutY="765.0" prefHeight="99.0" prefWidth="280.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chRefPantones" layoutX="988.0" layoutY="755.0" prefHeight="99.0" prefWidth="352.0" AnchorPane.leftAnchor="988.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chNbBobines" layoutX="1120.0" layoutY="754.0" prefHeight="99.0" prefWidth="54.0" AnchorPane.leftAnchor="1370.0" AnchorPane.topAnchor="755.0" />
-      <TextField fx:id="chE" layoutX="1196.0" layoutY="756.0" prefHeight="99.0" prefWidth="96.0" AnchorPane.leftAnchor="1445.0" AnchorPane.topAnchor="755.0" />
-      <TextField layoutX="6.0" layoutY="871.0" prefHeight="99.0" prefWidth="293.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="269.0" layoutY="858.0" prefHeight="99.0" prefWidth="102.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="385.0" layoutY="873.0" prefHeight="99.0" prefWidth="152.0" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="710.0" layoutY="870.0" prefHeight="99.0" prefWidth="280.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="988.0" layoutY="872.0" prefHeight="99.0" prefWidth="352.0" AnchorPane.leftAnchor="988.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="1155.0" layoutY="870.0" prefHeight="99.0" prefWidth="54.0" AnchorPane.leftAnchor="1370.0" AnchorPane.topAnchor="872.0" />
-      <TextField layoutX="1199.0" layoutY="870.0" prefHeight="99.0" prefWidth="96.0" AnchorPane.leftAnchor="1445.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chEtiquetteTotal" layoutX="1196.0" layoutY="756.0" prefHeight="99.0" prefWidth="96.0" AnchorPane.leftAnchor="1445.0" AnchorPane.topAnchor="755.0" />
+      <TextField fx:id="chCodeArticle2" layoutX="6.0" layoutY="871.0" prefHeight="99.0" prefWidth="293.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chLargeur2" layoutX="269.0" layoutY="858.0" prefHeight="99.0" prefWidth="102.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chNbCouleurs2" layoutX="385.0" layoutY="873.0" prefHeight="99.0" prefWidth="152.0" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chModele2" layoutX="710.0" layoutY="870.0" prefHeight="99.0" prefWidth="280.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chRefPantones2" layoutX="988.0" layoutY="872.0" prefHeight="99.0" prefWidth="352.0" AnchorPane.leftAnchor="988.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chNbBobines2" layoutX="1155.0" layoutY="870.0" prefHeight="99.0" prefWidth="54.0" AnchorPane.leftAnchor="1370.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chEtiquetteTotal2" layoutX="1199.0" layoutY="870.0" prefHeight="99.0" prefWidth="96.0" AnchorPane.leftAnchor="1445.0" AnchorPane.topAnchor="872.0" />
       <Label layoutX="1329.0" layoutY="711.0" prefHeight="27.0" prefWidth="33.0" text="B" AnchorPane.leftAnchor="1580.0" AnchorPane.topAnchor="710.0">
          <font>
             <Font name="System Bold" size="18.0" />

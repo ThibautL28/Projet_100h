@@ -32,6 +32,9 @@ public class ArticleService {
     public Integer getArticleId(Article article) {
         return articleDao.getArticleId(article);
     }
+    public Integer getArticleIdFromString(String codeArticle) {
+        return articleDao.getArticleIdFromString(codeArticle);
+    }
 
     public void addArticle(Article newArticle) {
         if(newArticle == null){

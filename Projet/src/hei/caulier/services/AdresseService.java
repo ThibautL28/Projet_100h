@@ -31,6 +31,10 @@ public class AdresseService {
     public Integer getAdresseId(Adresse adresse) {
         return adresseDao.getAdresseId(adresse);
     }
+    public Integer getAdresseIdFromString(String adresse) {
+        return adresseDao.getAdresseIdFromString(adresse);
+    }
+
 
     public void addAdresse(Adresse newAdresse) {
         if(newAdresse == null){

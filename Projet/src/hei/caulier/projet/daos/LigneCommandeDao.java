@@ -1,6 +1,7 @@
 package hei.caulier.projet.daos;
 
 import hei.caulier.projet.DataSourceProvider;
+import hei.caulier.projet.Helper;
 import hei.caulier.projet.entities.LigneCommande;
 import hei.caulier.projet.exceptions.ProjectRuntimeException;
 import hei.caulier.services.ArticleService;
@@ -52,25 +53,25 @@ public class LigneCommandeDao {
              PreparedStatement statement = connection.prepareStatement("INSERT INTO lignecommande(idCom, idArticle, largeur, nbCouleurs, modele, refPantones, nbBobines, metreTotal, couleurs, aplat, nbLangues, variete, calibre, poids, origine, traitement, categorie, pointVert, numLot, codeBarre, etiquetteTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
         	statement.setInt(1, CommandeService.getInstance().getCommandeId(newLigneCommande.getCommande()));
             statement.setInt(2, ArticleService.getInstance().getArticleId(newLigneCommande.getArticle()));
-            statement.setFloat(3,  newLigneCommande.getLargeur());
-            statement.setInt(4, newLigneCommande.getNbCouleurs());
-            statement.setString(5, newLigneCommande.getModele());
-            statement.setString(6, newLigneCommande.getRefPantones());
-            statement.setInt(7, newLigneCommande.getNbBobines());
-            statement.setFloat(8,  newLigneCommande.getMetreTotal());
-            statement.setString(9, newLigneCommande.getCouleurs());
-            statement.setString(10, newLigneCommande.getAplat());
-            statement.setInt(11, newLigneCommande.getNbLangues());
-            statement.setString(12, newLigneCommande.getVariete());
-            statement.setString(13, newLigneCommande.getCalibre());
-            statement.setString(14, newLigneCommande.getPoids());
-            statement.setString(15, newLigneCommande.getOrigine());
-            statement.setBoolean(16, newLigneCommande.getTraitement());
-            statement.setString(17, newLigneCommande.getCategorie());
-            statement.setBoolean(18, newLigneCommande.getPointVert());
-            statement.setString(19, newLigneCommande.getNumLot());
-            statement.setString(20, newLigneCommande.getCodeBarre());
-            statement.setFloat(21, newLigneCommande.getEtiquetteTotal());
+            Helper.setFloatOrNull(statement, 3, newLigneCommande.getLargeur());
+            Helper.setIntOrNull(statement, 4, newLigneCommande.getNbCouleurs());
+            Helper.setStringOrNull(statement, 5, newLigneCommande.getModele());
+            Helper.setStringOrNull(statement, 6, newLigneCommande.getRefPantones());
+            Helper.setIntOrNull(statement, 7, newLigneCommande.getNbBobines());
+            Helper.setFloatOrNull(statement, 8,  newLigneCommande.getMetreTotal());
+            Helper.setStringOrNull(statement, 9, newLigneCommande.getCouleurs());
+            Helper.setStringOrNull(statement, 10, newLigneCommande.getAplat());
+            Helper.setIntOrNull(statement, 11, newLigneCommande.getNbLangues());
+            Helper.setStringOrNull(statement, 12, newLigneCommande.getVariete());
+            Helper.setStringOrNull(statement, 13, newLigneCommande.getCalibre());
+            Helper.setStringOrNull(statement, 14, newLigneCommande.getPoids());
+            Helper.setStringOrNull(statement, 15, newLigneCommande.getOrigine());
+            Helper.setBooleanOrNull(statement, 16, newLigneCommande.getTraitement());
+            Helper.setStringOrNull(statement, 17, newLigneCommande.getCategorie());
+            Helper.setBooleanOrNull(statement, 18, newLigneCommande.getPointVert());
+            Helper.setStringOrNull(statement, 19, newLigneCommande.getNumLot());
+            Helper.setStringOrNull(statement, 20, newLigneCommande.getCodeBarre());
+            Helper.setFloatOrNull(statement, 21, newLigneCommande.getEtiquetteTotal());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ProjectRuntimeException("Erreur en essayant d'ajouter une ligne", e);

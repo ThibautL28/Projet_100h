@@ -1,12 +1,17 @@
 package hei.caulier.projet.daos;
 
 import java.sql.*;
+import java.util.Optional;
+import hei.caulier.projet.*;
+
+import com.mysql.jdbc.SocketMetadata.Helper;
 
 import hei.caulier.projet.DataSourceProvider;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.exceptions.ProjectRuntimeException;
 import hei.caulier.services.AdresseService;
 import hei.caulier.services.MachineService;
+import jdk.internal.jline.internal.Nullable;
 
 public class CommandeDao {
 	
@@ -21,6 +26,7 @@ public class CommandeDao {
                             AdresseService.getInstance().getAdresse(resultSet.getInt("idAdresse")),
                             MachineService.getInstance().getMachine(resultSet.getInt("idMachine")),
                             resultSet.getDate("dateCom").toLocalDate(),
+                            resultSet.getString("depart"),
                             resultSet.getInt("codeAchat"),
                             resultSet.getString("modeLivraison"),
                             resultSet.getString("typeImpression"),
@@ -39,7 +45,8 @@ public class CommandeDao {
                             resultSet.getString("versoMatiere"),
                             resultSet.getString("matiereImpression"),
                             resultSet.getString("matiereCollage"),
-                            resultSet.getString("decoupe"));
+                            resultSet.getString("decoupe"),
+                    		resultSet.getInt("coteImpression"));
                 }
             }
         } catch (SQLException e) {
@@ -50,29 +57,31 @@ public class CommandeDao {
 	
 	public void addCommande(Commande newCommande) {
         try (Connection connection = DataSourceProvider.getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO commande(idAdresse, idMachine, dateCom, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO commande(idAdresse, idMachine, dateCom, depart, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe, coteImpression) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             statement.setInt(1, AdresseService.getInstance().getAdresseId(newCommande.getAdresse()));
             statement.setInt(2, MachineService.getInstance().getMachineId(newCommande.getMachine()));
             statement.setDate(3, Date.valueOf(newCommande.getDateCom()));
-            statement.setInt(4, newCommande.getCodeAchat());
-            statement.setString(5, newCommande.getModeLivraison());
-            statement.setString(6, newCommande.getTypeImpression());
-            statement.setInt(7, newCommande.getSensImpressionRecto());
-            statement.setInt(8, newCommande.getSensImpressionVerso());
-            statement.setFloat(9,  newCommande.getTailleBobine());
-            statement.setFloat(10,  newCommande.getDiamMandrin());
-            statement.setFloat(11,  newCommande.getDiamExtBobine());
-            statement.setString(12, newCommande.getDeveloppement());
-            statement.setString(13, newCommande.getCliche());
-            statement.setFloat(14,  newCommande.getEpaisseur());
-            statement.setString(15, newCommande.getMatiere());
-            statement.setString(16, newCommande.getObservations());
-            statement.setInt(17, newCommande.getNbEtiquettes());
-            statement.setString(18, newCommande.getRectoMatiere());
-            statement.setString(19, newCommande.getVersoMatiere());
-            statement.setString(20, newCommande.getMatiereImpression());
-            statement.setString(21, newCommande.getMatiereCollage());
-            statement.setString(22, newCommande.getDecoupe());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 4, newCommande.getDepart());
+            hei.caulier.projet.Helper.setIntOrNull(statement, 5, newCommande.getCodeAchat());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 6, newCommande.getModeLivraison());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 7, newCommande.getTypeImpression());
+            hei.caulier.projet.Helper.setIntOrNull(statement, 8, newCommande.getSensImpressionRecto());
+            hei.caulier.projet.Helper.setIntOrNull(statement, 9, newCommande.getSensImpressionVerso());
+            hei.caulier.projet.Helper.setFloatOrNull(statement, 10, newCommande.getTailleBobine());
+            hei.caulier.projet.Helper.setFloatOrNull(statement, 11, newCommande.getDiamMandrin());
+            hei.caulier.projet.Helper.setFloatOrNull(statement, 12, newCommande.getDiamExtBobine());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 13, newCommande.getDeveloppement());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 14, newCommande.getCliche());
+            hei.caulier.projet.Helper.setFloatOrNull(statement, 15, newCommande.getEpaisseur());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 16, newCommande.getMatiere());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 17, newCommande.getObservations());
+            hei.caulier.projet.Helper.setIntOrNull(statement, 18, newCommande.getNbEtiquettes());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 19, newCommande.getRectoMatiere());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 20, newCommande.getVersoMatiere());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 21, newCommande.getMatiereImpression());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 22, newCommande.getMatiereCollage());
+            hei.caulier.projet.Helper.setStringOrNull(statement, 23, newCommande.getDecoupe());
+            hei.caulier.projet.Helper.setIntOrNull(statement, 24, newCommande.getCoteImpression());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ProjectRuntimeException("Erreur en essayant d'ajouter une commande", e);
