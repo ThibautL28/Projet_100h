@@ -61,12 +61,12 @@ public class MainApp extends Application {
      */
     public void showMainWindow() {
         try {
-            // Load person overview.
+            // Load main window.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/MainWindow.fxml"));
             AnchorPane mainWindow = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Set main window into the center of root layout.
             rootLayout.setCenter(mainWindow);
             
          // Give the controller access to the main app.
