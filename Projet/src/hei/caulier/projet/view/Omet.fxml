@@ -17,6 +17,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="1654.0" prefWidth="2343.0" stylesheets="@MyTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hei.caulier.projet.view.OmetController">
    <children>
+   <ImageView fitHeight="75.0" fitWidth="653.0" layoutX="482.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="480.0">
+         <image>
+            <Image url="file:resources/images/bobfinie.png" />
+         </image>
+      </ImageView>
       <Separator layoutX="46.0" layoutY="42.0" prefHeight="0.0" prefWidth="412.0" styleClass="black-separator" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: lightblue;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <buttons>
