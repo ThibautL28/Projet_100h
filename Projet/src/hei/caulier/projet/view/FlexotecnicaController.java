@@ -16,6 +16,7 @@ import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -31,12 +32,69 @@ public class FlexotecnicaController {
 	Parent root;
 	
 	@FXML
-	private TextField test;
+	private TextField chDateCom;
+	@FXML
+	private TextField chDepart;
+	@FXML
+	private TextField chAdresse;
+	@FXML
+	private TextField chModeLivraison;
+	@FXML
+	private TextField chClient;
+	@FXML
+	private TextField chTailleBobine;
+	@FXML
+	private TextField chDiamMandrin;
+	@FXML
+	private TextField chDiamExtBobine;
+	@FXML
+	private TextField chDeveloppement;
+	@FXML
+	private TextField chObservations;
+	@FXML
+	private TextField chCodeAchat;
+	@FXML
+	private TextField chMatiereImpression;
+	@FXML
+	private TextField chMatiereCollage;
+	@FXML
+	private TextField chCodeArticle;
+	@FXML
+	private TextField chLargeur;
+	@FXML
+	private TextField chNbCouleurs;
+	@FXML
+	private TextField chModele;
+	@FXML
+	private TextField chRefPantones;
+	@FXML
+	private TextField chNbBobines;
+	@FXML
+	private TextField chMetreTotal;
+	@FXML
+	private CheckBox chTypeImpr1;
+	@FXML
+	private CheckBox chTypeImpr2;
+	@FXML
+	private CheckBox chTypeImpr3;
+	@FXML
+	private CheckBox chSensImpr1;
+	@FXML
+	private CheckBox chSensImpr2;
+	@FXML
+	private CheckBox chSensImpr3;
+	@FXML
+	private CheckBox chSensImpr4;
+	@FXML
+	private CheckBox chSensImpr5;
+	@FXML
+	private CheckBox chSensImpr6;
+	@FXML
+	private CheckBox chSensImpr7;
+	@FXML
+	private CheckBox chSensImpr8;
 	
-   
-
- 
-
+	
 
 
 	/**
@@ -77,8 +135,8 @@ public class FlexotecnicaController {
     
     @FXML
 	private void handleCreatePDF() {
-    	System.out.println(test.getText());
-		PDFGenerator_Flexo.createPDF(test.getText());
+    	System.out.println(chAdresse.getText());
+		PDFGenerator_Flexo.createPDF(chAdresse.getText());
 	}
 
 	
