@@ -170,8 +170,7 @@ public class FlexotecnicaController {
     
     @FXML
 	private void handleCreatePDF() {
-    	System.out.println(chAdresse.getText());
-		PDFGenerator_Flexo.createPDF(chAdresse.getText());
+		PDFGenerator_Flexo.createPDF("test");
 		SaveToDbFlexo();
 	}
 
