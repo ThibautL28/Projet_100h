@@ -37,8 +37,7 @@ public class PDFGenerator_Flexo {
     private static String FILE = "C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf";
 
 
-
-    public static void createPDF(String oui) {
+    public static void createPDF(String test) {
         try {
         	File destination = new File("C:\\AppBonsFab\\Flexo"); 
         	destination.mkdirs();
@@ -67,7 +66,7 @@ public class PDFGenerator_Flexo {
             cell = new PdfPCell(new Phrase("DEPART : " + " test départ", f));            
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "POLYFILM NON COMPLEXE", f));            
+            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "POLYFILM NON COMPLEXE", f_b));            
             table.addCell(cell);
             
             cell = new PdfPCell(new Phrase("MODE DE LIVRAISON : " + "test de mode de livraison", f)); 
@@ -323,9 +322,9 @@ public class PDFGenerator_Flexo {
         				
         		} else {
 
-        			System.out.println("File is not exists");
+        			System.out.println("File do not exists");
         		}
-        		System.out.println("Done");
+        		System.out.println("PDF done");
 
         	  } catch (Exception ex) {
       		ex.printStackTrace();
