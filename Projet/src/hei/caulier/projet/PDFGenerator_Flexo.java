@@ -45,15 +45,14 @@ public class PDFGenerator_Flexo {
             Document document = new Document(PageSize.A4.rotate(),5,5,5,5);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
+            addMetaData(document);
             
             //définition des polices
-            Font f1=new Font(FontFamily.UNDEFINED,15f,Font.NORMAL,BaseColor.BLACK);
             Font f=new Font(FontFamily.TIMES_ROMAN,15f,Font.NORMAL,BaseColor.BLACK);
             Font f_u=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE,BaseColor.BLACK);
             Font f_bu=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE|Font.BOLD,BaseColor.BLACK);
             Font f_b=new Font(FontFamily.TIMES_ROMAN,14f,Font.BOLD,BaseColor.BLACK);
             
-            BaseFont bf_f = f.getCalculatedBaseFont(false);
             
             PdfPTable table = new PdfPTable(4);
             table.setWidths(new int[]{ 1, 1, 2, 2});
@@ -337,8 +336,7 @@ public class PDFGenerator_Flexo {
         }
     }
 
-    // iText allows to add metadata to the PDF which can be viewed in your Adobe
-    // Reader
+    // iText allows to add metadata to the PDF which can be viewed in your Adobe Reader
     // under File -> Properties
     private static void addMetaData(Document document) {
     	document.addTitle("Bon de fabrication");
@@ -346,21 +344,5 @@ public class PDFGenerator_Flexo {
         document.addKeywords("Java, PDF, iText");
         document.addAuthor("CAULIER");
         document.addCreator("CAULIER");
-    }
-
-    
-
-    private static void createList(Section subCatPart) {
-        List list = new List(true, false, 10);
-        list.add(new ListItem("First point"));
-        list.add(new ListItem("Second point"));
-        list.add(new ListItem("Third point"));
-        subCatPart.add(list);
-    }
-
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
-        }
     }
 }
