@@ -35,15 +35,8 @@ import javafx.scene.text.TextAlignment;
 
 public class PDFGenerator_Flexo {
     private static String FILE = "C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf";
-    
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
+
+
 
     public static void createPDF(String oui) {
         try {
