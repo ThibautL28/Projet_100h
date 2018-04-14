@@ -13,37 +13,308 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFGenerator_Omet {
 	private static String FILE = "C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf";
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
+    
 
     public static void createPDF() {
         try {
         	File destination = new File("C:\\AppBonsFab\\Omet"); 
         	destination.mkdirs();
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            Document document = new Document(PageSize.A4.rotate(),5,5,5,5);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
-            addTitlePage(document);
-            addContent(document);
+            
+          //définition des polices
+            Font f=new Font(FontFamily.TIMES_ROMAN,15f,Font.NORMAL,BaseColor.BLACK);
+            Font f_u=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE,BaseColor.BLACK);
+            Font f_bu=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE|Font.BOLD,BaseColor.BLACK);
+            Font f_b=new Font(FontFamily.TIMES_ROMAN,14f,Font.BOLD,BaseColor.BLACK);
+            Font f_i=new Font(FontFamily.TIMES_ROMAN,14f,Font.ITALIC,BaseColor.BLACK);
+            
+            
+            PdfPTable table = new PdfPTable(4);
+            table.setWidths(new int[]{ 1, 1, 2, 2});
+            table.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.setWidthPercentage(100);
+            
+            
+            //infos à compléter depuis BDD
+            PdfPCell cell = new PdfPCell(new Phrase("DATE : "  + " test date ", f));
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("DEPART : " + " test départ", f));            
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "ETIQUETTES", f_b));            
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("MODE DE LIVRAISON : " + "test de mode de livraison", f)); 
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            cell.setRowspan(2);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("CLIENT : " + "test de client", f));            
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("ADRESSE LIVRAISON : " + "test d'une adresse de livraison aléatoire", f));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            table.addCell(cell);
+            
+            document.add(table);
+            
+         //image sens d'impression
+            Image sensImpr = Image.getInstance("resources/images/sensFlexo.png");
+            sensImpr.setAbsolutePosition(250f, 480f);
+            sensImpr.scaleToFit(300f, 300f);
+            document.add(sensImpr);
+            
+          //image bobine finie
+            Image bobFinie = Image.getInstance("resources/images/bobfinie.png");
+            bobFinie.setAbsolutePosition(30f, 127f);
+            bobFinie.scaleToFit(100f, 100f);
+            document.add(bobFinie);
+ 
+            PdfContentByte canvas = writer.getDirectContent();
+            
+            canvas.saveState();
+            canvas.setLineWidth(1f);
+                       
+            //traçage du carré "bobine"
+            canvas.moveTo(200, 520);
+            canvas.lineTo(200, 425);
+            canvas.lineTo(5, 425);
+            canvas.lineTo(5, 520);
+            canvas.lineTo(200, 520);
+            canvas.moveTo(5, 425);
+            canvas.lineTo(5, 400);
+            canvas.lineTo(200, 400);
+            canvas.lineTo(200, 425);
+                        
+            //carré "commande"
+            canvas.moveTo(560, 150);
+            canvas.lineTo(652, 150);
+            canvas.lineTo(652, 125);
+            canvas.lineTo(560, 125);
+            canvas.lineTo(560, 150);
+            
+            //carré partie de droite pas à remplir
+            canvas.moveTo(652, 150);
+            canvas.lineTo(652, 510);
+            canvas.lineTo(835, 510);
+            canvas.lineTo(835, 125);
+            canvas.moveTo(743, 125);
+            canvas.lineTo(743, 510);
+            
+            
+            //carré imprimeur
+            canvas.moveTo(525, 350);
+            canvas.lineTo(652, 350);
+            canvas.lineTo(652, 275);
+            canvas.lineTo(525, 275);
+            canvas.lineTo(525, 350);
+            
+            canvas.stroke();
+            canvas.restoreState();
+            
+           //remplir sens impression
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("SENS D'IMPRESSION : " +"1" +  ", " +" 5",f), 300, 465, 0);
+            
+            
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("MATIERE : " +"DIVIPA THERM 220µ",f_b), 250, 375, 0);
+            
+            
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Observations : " ,f), 20, 320, 0);
+            //création d'une case observations
+            PdfPTable obs = new PdfPTable(1);
+            //remplir infos observations
+            PdfPCell obscell = new PdfPCell(new Phrase("observations aléatoires pour tester le comportement de la case contenant ces observations ", f));
+            obs.addCell(obscell);
+            obs.setTotalWidth(280);
+            obs.writeSelectedRows(0,1, 120, 330, canvas);
+            
+            //la case bobine et ses infos à remplir
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Bobine : ",f_u), 10, 507, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Nb étiquettes : " +"15 1515",f), 10, 490, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Mandrin : " +"15 1515",f), 10, 470, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Ext. Bob. : " +"15 1515",f), 10, 450, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f_i), 10, 430, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Cliché : " +"test ",f_i), 10, 410, 0);
+            
+            //infos à remplir
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Recto : Matière : " +"cela est un test de matière",f), 150, 170, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Verso : Matière : " +"cela est un autre test",f), 150, 140, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("RECTO/VERSO" ,f_b), 440, 150, 0);
+            
+            
+          //création d'une case code achat
+            PdfPTable tableCAchat = new PdfPTable(1);
+            //remplir infos observations
+            PdfPCell acell = new PdfPCell(new Phrase("CODE ACHAT : ", f));
+            tableCAchat.addCell(acell);
+            
+            acell = new PdfPCell(new Phrase("25418 515", f));
+            tableCAchat.addCell(acell);
+            
+            tableCAchat.setTotalWidth(120);
+            tableCAchat.writeSelectedRows(0,2, 520, 440, canvas);
+            
+            //pas d'info à remplir
+            
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, new Phrase("COMMANDE",f_b), 606, 135, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Bobine finie: ",f_b), 10, 200, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, new Phrase("Imprimeur : ",f), 588, 330, 0);
+            
+            //partie de droite pas à remplir
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Nbre Colis",f), 660, 490, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Nbre Colis",f), 751, 490, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Poids",f), 660, 350, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Poids",f), 751, 350, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("1ère livr",f), 660, 210, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Solde livr",f), 751, 210, 0);
+            
+            
+            //création du tableau du bas
+            PdfPTable tabbas = new PdfPTable(11);
+            tabbas.setWidths(new int[]{ 3, 1, 2, 3, 3, 1, 1, 1, 1, 1, 1});
+            tabbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.setWidthPercentage(100);
+            
+            
+            PdfPCell cbas = new PdfPCell(new Phrase("CODE", f_b));
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("LARG", f_b)); 
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("NBRE COULEURS", f_b)); 
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("MODELE", f_b));
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("REF. PANTONE", f_b));
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("B", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("E", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("B", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("E", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("B", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("E", f_b)); 
+            cbas.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabbas.addCell(cbas);
+            
+            //2e ligne
+            cbas = new PdfPCell(new Phrase("15989 59 4 951 959 FAP", f)); //CODE
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("24789", f)); //LARG
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("6497", f)); //NBRE COULEURS
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("ici MODELE relativement long", f)); //MODELE
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ici REFERENCE relativement longue", f)); //REF PANTONE
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("648795", f)); //B
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("878666000", f)); //M
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            //3e ligne
+            cbas = new PdfPCell(new Phrase("159 51 5 1 95 15 5995 DEZ", f)); //CODE 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("18558", f)); //LARG 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("752", f)); //NBRE COULEURS 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ici MODELE long", f)); //MODELE 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("ici REFERENCE longue", f)); //REF PANTONE 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" 150 000", f)); //B 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase("800 000 000", f)); //METRES 2
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
+            tabbas.addCell(cbas);
+            
+            tabbas.setTotalWidth(825);
+            tabbas.writeSelectedRows(0, 3, 10, 125, canvas);
+            
+                  
+            
             document.close();
+            
             try {
 
         		if ((new File("C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf")).exists()) {
@@ -80,124 +351,4 @@ public class PDFGenerator_Omet {
         document.addCreator("CAULIER");
     }
 
-    private static void addTitlePage(Document document)
-            throws DocumentException {
-        Paragraph preface = new Paragraph();
-        // We add one empty line
-        addEmptyLine(preface, 1);
-        // Lets write a big header
-        preface.add(new Paragraph("Title of the document", catFont));
-
-        addEmptyLine(preface, 1);
-        // Will create: Report generated by: _name, _date
-        preface.add(new Paragraph(
-                "Report generated by: " + System.getProperty("user.name") + ", " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                smallBold));
-        addEmptyLine(preface, 3);
-        preface.add(new Paragraph(
-                "This document describes something which is very important ",
-                smallBold));
-
-        addEmptyLine(preface, 8);
-
-        preface.add(new Paragraph(
-                "This document is a preliminary version and not subject to your license agreement or any other agreement with vogella.com ;-).",
-                redFont));
-
-        document.add(preface);
-        // Start a new page
-        document.newPage();
-    }
-
-    private static void addContent(Document document) throws DocumentException {
-        Anchor anchor = new Anchor("First Chapter", catFont);
-        anchor.setName("First Chapter");
-
-        // Second parameter is the number of the chapter
-        Chapter catPart = new Chapter(new Paragraph(anchor), 1);
-
-        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-        Section subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Hello"));
-
-        subPara = new Paragraph("Subcategory 2", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("Paragraph 1"));
-        subCatPart.add(new Paragraph("Paragraph 2"));
-        subCatPart.add(new Paragraph("Paragraph 3"));
-
-        // add a list
-        createList(subCatPart);
-        Paragraph paragraph = new Paragraph();
-        addEmptyLine(paragraph, 5);
-        subCatPart.add(paragraph);
-
-        // add a table
-        createTable(subCatPart);
-
-        // now add all this to the document
-        document.add(catPart);
-
-        // Next section
-        anchor = new Anchor("Second Chapter", catFont);
-        anchor.setName("Second Chapter");
-
-        // Second parameter is the number of the chapter
-        catPart = new Chapter(new Paragraph(anchor), 1);
-
-        subPara = new Paragraph("Subcategory", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("This is a very important message"));
-
-        // now add all this to the document
-        document.add(catPart);
-
-    }
-
-    private static void createTable(Section subCatPart)
-            throws BadElementException {
-        PdfPTable table = new PdfPTable(3);
-
-        // t.setBorderColor(BaseColor.GRAY);
-        // t.setPadding(4);
-        // t.setSpacing(4);
-        // t.setBorderWidth(1);
-
-        PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("Table Header 2"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("Table Header 3"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-        table.setHeaderRows(1);
-
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-
-        subCatPart.add(table);
-
-    }
-
-    private static void createList(Section subCatPart) {
-        List list = new List(true, false, 10);
-        list.add(new ListItem("First point"));
-        list.add(new ListItem("Second point"));
-        list.add(new ListItem("Third point"));
-        subCatPart.add(list);
-    }
-
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
-        }
-    }
 }

@@ -51,6 +51,7 @@ public class PDFGenerator_Flexo {
             Font f_u=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE,BaseColor.BLACK);
             Font f_bu=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE|Font.BOLD,BaseColor.BLACK);
             Font f_b=new Font(FontFamily.TIMES_ROMAN,14f,Font.BOLD,BaseColor.BLACK);
+            Font f_i=new Font(FontFamily.TIMES_ROMAN,14f,Font.ITALIC,BaseColor.BLACK);
             
             
             PdfPTable table = new PdfPTable(4);
@@ -153,7 +154,7 @@ public class PDFGenerator_Flexo {
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Mètres : " +"15 1515",f), 10, 490, 0);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Mandrin : " +"15 1515",f), 10, 470, 0);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Ext. Bob. : " +"15 1515",f), 10, 450, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f), 10, 430, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f_i), 10, 430, 0);
             
             //infos à remplir
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("MATIERE IMPRESSION : " +"cela est un test de matière",f), 10, 170, 0);
