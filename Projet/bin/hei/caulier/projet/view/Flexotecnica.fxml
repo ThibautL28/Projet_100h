@@ -30,7 +30,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField fx:id="chDateCom" layoutX="133.0" layoutY="51.0" prefHeight="26.0" prefWidth="154.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="51.0" />
+      <TextField fx:id="chDateCom" layoutX="133.0" layoutY="51.0" prefHeight="26.0" prefWidth="154.0" promptText="jj/mm/aaaa" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="51.0" />
       <Label layoutX="231.0" layoutY="55.0" prefHeight="18.0" prefWidth="67.0" text="DEPART :" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="55.0">
          <font>
             <Font size="14.0" />
@@ -70,7 +70,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField fx:id="chAdresse" layoutX="413.0" layoutY="102.0" prefHeight="39.0" prefWidth="626.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="101.0" />
+      <TextField fx:id="chAdresse" layoutX="413.0" layoutY="102.0" prefHeight="39.0" prefWidth="626.0" promptText="Saisir une adresse présente dans la base..." AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="101.0" />
       <Separator layoutX="46.0" layoutY="96.0" prefHeight="0.0" prefWidth="1895.0" styleClass="lightgreen-separator" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="150.0" />
       <Label layoutX="1123.0" layoutY="83.0" prefHeight="18.0" prefWidth="171.0" text="MODE DE LIVRAISON :" AnchorPane.leftAnchor="1400.0">
          <font>
@@ -237,14 +237,14 @@
       <Separator layoutX="1203.0" layoutY="702.0" orientation="VERTICAL" prefHeight="280.0" styleClass="blue-separator" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="702.0" />
       <Separator layoutX="257.0" layoutY="157.0" orientation="VERTICAL" prefHeight="177.0" prefWidth="2.0" styleClass="blue-separator" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="153.0" />
       <Separator layoutX="267.0" layoutY="83.0" orientation="VERTICAL" prefHeight="110.0" styleClass="lightgreen-separator" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="chCodeArticle" layoutX="17.0" layoutY="760.0" prefHeight="99.0" prefWidth="293.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="755.0" />
+      <TextField fx:id="chCodeArticle" layoutX="17.0" layoutY="760.0" prefHeight="99.0" prefWidth="293.0" promptText="Saisir un code présent dans la base..." AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chLargeur" layoutX="267.0" layoutY="756.0" prefHeight="99.0" prefWidth="102.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chNbCouleurs" layoutX="366.0" layoutY="760.0" prefHeight="99.0" prefWidth="152.0" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chModele" layoutX="560.0" layoutY="765.0" prefHeight="99.0" prefWidth="280.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chRefPantones" layoutX="988.0" layoutY="755.0" prefHeight="99.0" prefWidth="352.0" AnchorPane.leftAnchor="988.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chNbBobines" layoutX="1120.0" layoutY="754.0" prefHeight="99.0" prefWidth="54.0" AnchorPane.leftAnchor="1370.0" AnchorPane.topAnchor="755.0" />
       <TextField fx:id="chMetreTotal" layoutX="1196.0" layoutY="756.0" prefHeight="99.0" prefWidth="96.0" AnchorPane.leftAnchor="1445.0" AnchorPane.topAnchor="755.0" />
-      <TextField fx:id="chCodeArticle2" layoutX="6.0" layoutY="871.0" prefHeight="99.0" prefWidth="293.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="872.0" />
+      <TextField fx:id="chCodeArticle2" layoutX="6.0" layoutY="871.0" prefHeight="99.0" prefWidth="293.0" promptText="Saisir un code présent dans la base..." AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="872.0" />
       <TextField fx:id="chLargeur2" layoutX="269.0" layoutY="858.0" prefHeight="99.0" prefWidth="102.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="872.0" />
       <TextField fx:id="chNbCouleurs2" layoutX="385.0" layoutY="873.0" prefHeight="99.0" prefWidth="152.0" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="872.0" />
       <TextField fx:id="chModele2" layoutX="710.0" layoutY="870.0" prefHeight="99.0" prefWidth="280.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="872.0" />

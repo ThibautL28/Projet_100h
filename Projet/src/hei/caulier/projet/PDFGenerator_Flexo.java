@@ -1,55 +1,30 @@
 package hei.caulier.projet;
 
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.deploy.services.Service;
-import com.sun.javafx.scene.web.Printable;
 
-import hei.caulier.projet.daos.CommandeDao;
-import hei.caulier.projet.entities.Adresse;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.entities.LigneCommande;
-import hei.caulier.projet.exceptions.ProjectRuntimeException;
-import hei.caulier.projet.view.FlexotecnicaController;
-import hei.caulier.services.ArticleService;
 import hei.caulier.services.ClientService;
 import hei.caulier.services.CommandeService;
 import hei.caulier.services.LigneCommandeService;
-import javafx.scene.text.TextAlignment;
 
 
 public class PDFGenerator_Flexo {
-    private static String FILE = "C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf";
 
     public static void createPDF(String test) {
         try {
@@ -62,6 +37,7 @@ public class PDFGenerator_Flexo {
         		newLigneCommande2 = LigneCommandeService.getInstance().listLignesCommande(newCommandeId).get(1);
         		OnlyOneLigneCommande = false;
         	}
+        	String FILE = "C:\\AppBonsFab\\Flexo\\Pdf_Flexo_" + newCommande.getIdCom() +".pdf";
         	File destination = new File("C:\\AppBonsFab\\Flexo"); 
         	destination.mkdirs();
             Document document = new Document(PageSize.A4.rotate(),5,5,5,5);
@@ -337,11 +313,11 @@ public class PDFGenerator_Flexo {
             
             try {
 
-        		if ((new File("C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf")).exists()) {
+        		if ((new File("C:\\AppBonsFab\\Flexo\\Pdf_Flexo_"+ newCommande.getIdCom() +".pdf")).exists()) {
 
         			Process p = Runtime
         			   .getRuntime()
-        			   .exec("rundll32 url.dll,FileProtocolHandler C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf");
+        			   .exec("rundll32 url.dll,FileProtocolHandler C:\\AppBonsFab\\Flexo\\Pdf_Flexo_"+ newCommande.getIdCom()+".pdf");
         			p.waitFor();
         				
         		} else {

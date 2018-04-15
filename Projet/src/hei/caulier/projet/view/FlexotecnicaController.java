@@ -1,53 +1,26 @@
 package hei.caulier.projet.view;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import com.itextpdf.text.pdf.GrayColor;
-import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
-
 import hei.caulier.projet.ConvertStringToDate;
-import hei.caulier.projet.DataSourceProvider;
-import hei.caulier.projet.MainApp;
 import hei.caulier.projet.PDFGenerator_Flexo;
-import hei.caulier.projet.daos.AdresseDao;
 import hei.caulier.projet.daos.CommandeDao;
 import hei.caulier.projet.daos.LigneCommandeDao;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.entities.LigneCommande;
-import hei.caulier.projet.exceptions.ProjectRuntimeException;
-import hei.caulier.projet.entities.Adresse;
 import hei.caulier.services.AdresseService;
 import hei.caulier.services.ArticleService;
-import hei.caulier.services.CommandeService;
 import hei.caulier.services.MachineService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import jdk.management.resource.internal.inst.FileChannelImplRMHooks;
 
 
 public class FlexotecnicaController {
