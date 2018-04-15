@@ -8,6 +8,8 @@ import hei.caulier.services.ArticleService;
 import hei.caulier.services.CommandeService;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LigneCommandeDao {
 
@@ -94,4 +96,46 @@ public class LigneCommandeDao {
         }
         return null;
     }
+	
+	public List<LigneCommande> listLignesCommande(Integer idCom) throws SQLException {
+		
+    	List<LigneCommande> lignescommande = new ArrayList<>();
+
+        try (Connection connection = DataSourceProvider.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM lignecommande WHERE idCom = ? ORDER BY idArticle")){
+        	statement.setInt(1, idCom);
+        	try (ResultSet resultSet = statement.executeQuery()) {
+        		while (resultSet.next()) {
+                    lignescommande.add(new LigneCommande(
+                    		resultSet.getInt("idLigne"),
+                            CommandeService.getInstance().getCommande(resultSet.getInt("idCom")),
+                            ArticleService.getInstance().getArticle(resultSet.getInt("idArticle")),
+                            resultSet.getFloat("largeur"),
+                            resultSet.getInt("nbCouleurs"),
+                            resultSet.getString("modele"),
+                            resultSet.getString("refPantones"),
+                            resultSet.getInt("nbBobines"),
+                            resultSet.getFloat("metreTotal"),
+                            resultSet.getString("couleurs"),
+                            resultSet.getString("aplat"),
+                            resultSet.getInt("nbLangues"),
+                            resultSet.getString("variete"),
+                            resultSet.getString("calibre"),
+                            resultSet.getString("poids"),
+                            resultSet.getString("origine"),
+                            resultSet.getBoolean("traitement"),
+                            resultSet.getString("categorie"),
+                            resultSet.getBoolean("pointVert"),
+                            resultSet.getString("numLot"),
+                            resultSet.getString("codeBarre"),
+                            resultSet.getFloat("etiquetteTotal")
+                    ));
+                }
+            } catch (SQLException e) 
+            {
+    			throw new ProjectRuntimeException("Erreur en essayant de lister les articles", e);
+    		}
+        	return lignescommande;
+        }
+}
 }

@@ -1,5 +1,8 @@
 package hei.caulier.services;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import hei.caulier.projet.daos.LigneCommandeDao;
 import hei.caulier.projet.entities.LigneCommande;
 
@@ -35,5 +38,9 @@ private LigneCommandeDao ligneCommandeDao = new LigneCommandeDao();
             throw new IllegalArgumentException("Une ligne de la commande doit etre fournie");
         }
         ligneCommandeDao.addLigneCommande(newLigneCommande);
+    }
+    
+    public List<LigneCommande> listLignesCommande (Integer idCom) throws SQLException{
+    	return ligneCommandeDao.listLignesCommande(idCom);
     }
 }

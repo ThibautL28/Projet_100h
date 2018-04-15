@@ -3,6 +3,7 @@ package test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -24,6 +25,7 @@ private LigneCommandeDao ligneCommandeDao = new LigneCommandeDao();
 		statement.executeUpdate("INSERT INTO client(idClient, nomClient) VALUES(2, 'deuxieme client')");
 		statement.executeUpdate("INSERT INTO machine(idMachine, nomMachine) VALUES(1, 'OMET')");
 		statement.executeUpdate("INSERT INTO machine(idMachine, nomMachine) VALUES(2, 'SIAT')");
+		statement.executeUpdate("INSERT INTO machine(idMachine, nomMachine) VALUES(3, 'FLEXOTECNICA')");
 		statement.executeUpdate("INSERT INTO adresse(idAdresse, idClient, adresseClient) VALUES(1, 1, 'premiere adresse')");
 		statement.executeUpdate("INSERT INTO adresse(idAdresse, idClient, adresseClient) VALUES(2, 2, 'deuxieme adresse')");
 		statement.executeUpdate("INSERT INTO commande(idCom, idAdresse, idMachine, dateCom, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe) VALUES(1, 1, 1, '2018-01-01', 11, 'mode livraison 1', 'type impression 1', 5, 5, 11.1, 5.5, 6.5, 'developpement 1', 'cliche 1', 4.2, 'matiere 1', 'observations de la commande 1', 100, 'rectomatiere 1', 'versomatiere 1', 'matiere impression 1', 'matiere collage 1', 'decoupe 1')");
@@ -99,5 +101,13 @@ private LigneCommandeDao ligneCommandeDao = new LigneCommandeDao();
 	            Assertions.assertThat(resultSet.getFloat("etiquetteTotal")).isEqualTo((float)123.6);
 	    }
 }
+	@Test
+	public void shouldListLignesCommande() throws Exception {
+		List<LigneCommande> lignescommande = ligneCommandeDao.listLignesCommande(1);
+        Assertions.assertThat(lignescommande).hasSize(1);
+        Assertions.assertThat(lignescommande).extracting("idLigne", "commande.idCom", "article.idArticle").contains(
+                Assertions.tuple(1, 1, 1)
+        );
+	}
 	
 }

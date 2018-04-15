@@ -2,13 +2,20 @@ package hei.caulier.projet.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import com.itextpdf.text.pdf.GrayColor;
+import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
 
 import hei.caulier.projet.ConvertStringToDate;
+import hei.caulier.projet.DataSourceProvider;
 import hei.caulier.projet.MainApp;
 import hei.caulier.projet.PDFGenerator_Flexo;
 import hei.caulier.projet.daos.AdresseDao;
@@ -16,6 +23,7 @@ import hei.caulier.projet.daos.CommandeDao;
 import hei.caulier.projet.daos.LigneCommandeDao;
 import hei.caulier.projet.entities.Commande;
 import hei.caulier.projet.entities.LigneCommande;
+import hei.caulier.projet.exceptions.ProjectRuntimeException;
 import hei.caulier.projet.entities.Adresse;
 import hei.caulier.services.AdresseService;
 import hei.caulier.services.ArticleService;
@@ -170,11 +178,11 @@ public class FlexotecnicaController {
     
     @FXML
 	private void handleCreatePDF() {
+    	SaveToDbFlexo();
 		PDFGenerator_Flexo.createPDF("test");
-		SaveToDbFlexo();
 	}
 
-	private void SaveToDbFlexo() {
+	public void SaveToDbFlexo() {
 		Integer adresseId = AdresseService.getInstance().getAdresseIdFromString(chAdresse.getText());
 		LocalDate dateCommande = ConvertStringToDate.StringToDate(chDateCom.getText());
 		Integer articleId = ArticleService.getInstance().getArticleIdFromString(chCodeArticle.getText());
@@ -202,7 +210,6 @@ public class FlexotecnicaController {
 				Float.valueOf(chDiamMandrin.getText()), Float.valueOf(chDiamExtBobine.getText()), chDeveloppement.getText(), null, null, null, chObservations.getText(), 
 				null, null, null, chMatiereImpression.getText(), chMatiereCollage.getText(), decoupe, null);
 		commandeDao.addCommande(newCommande);
-		
 		LigneCommande newLigneCommande = new LigneCommande(null, newCommande, ArticleService.getInstance().getArticle(articleId), Float.valueOf(chLargeur.getText()),
 				Integer.valueOf(chNbCouleurs.getText()), chModele.getText(), chRefPantones.getText(), Integer.valueOf(chNbBobines.getText()), Float.valueOf(chMetreTotal.getText()), 
 				null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -214,11 +221,4 @@ public class FlexotecnicaController {
 			 ligneCommandeDao.addLigneCommande(newLigneCommande2);
 		 }
 	}
-
-	  
-
-   
- 
-
-   
 }

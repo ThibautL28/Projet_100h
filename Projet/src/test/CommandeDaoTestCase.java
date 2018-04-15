@@ -101,4 +101,11 @@ private CommandeDao commandeDao = new CommandeDao();
 	            Assertions.assertThat(resultSet.next()).isFalse();
 	        }
 	    }
+	
+	@Test
+	public void shouldGetNewCommandeId() {
+		Integer newCommandeId = commandeDao.getNewCommandeId();
+		Assertions.assertThat(newCommandeId).isEqualTo(2);
+		
+	}
 }

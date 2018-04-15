@@ -1,0 +1,25 @@
+INSERT INTO client(idClient, nomClient) VALUES(1, 'premier client');
+INSERT INTO client(idClient, nomClient) VALUES(2, 'deuxieme client');
+INSERT INTO machine(idMachine, nomMachine) VALUES(1, 'OMET');
+INSERT INTO machine(idMachine, nomMachine) VALUES(2, 'SIAT');
+INSERT INTO machine(idMachine, nomMachine) VALUES(3, 'FLEXOTECNICA');
+INSERT INTO adresse(idAdresse, idClient, adresseClient) VALUES(1, 1, 'premiere adresse');
+INSERT INTO adresse(idAdresse, idClient, adresseClient) VALUES(2, 2, 'deuxieme adresse');
+INSERT INTO commande(idCom, idAdresse, idMachine, dateCom, depart, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe, coteimpression) VALUES(1, 1, 1, '2018-01-01', 'depart 1', 11, 'mode livraison 1', 'type impression 1', 5, 5, 11.1, 5.5, 6.5, 'developpement 1', 'cliche 1', 4.2, 'matiere 1', 'observations de la commande 1', 100, 'rectomatiere 1', 'versomatiere 1', 'matiere impression 1', 'matiere collage 1', 'decoupe 1', 1);
+INSERT INTO commande(idCom, idAdresse, idMachine, dateCom, depart, codeAchat, modeLivraison, typeImpression, sensImpressionRecto, sensImpressionVerso, tailleBobine, diamMandrin, diamExtBobine, developpement, cliche, epaisseur, matiere, observations, nbEtiquettes, rectoMatiere, versoMatiere, matiereImpression, matiereCollage, decoupe, coteimpression) VALUES(2, 2, 2, '2018-02-02', 'depart 2', 22, 'mode livraison 2', 'type impression 2', 4, 7, 22.2, 7.5, 6.2, 'developpement 2', 'cliche 2', 5.1, 'matiere 2', 'observations de la commande 2', 200, 'rectomatiere 2', 'versomatiere 2', 'matiere impression 2', 'matiere collage 2', 'decoupe 2', 2);
+LOAD DATA LOCAL INFILE
+'C:/Users/Thibaut Lamonier/Desktop/HEI4/Projet 100h/divalto/articlesmodif.csv' 
+INTO TABLE article
+FIELDS TERMINATED BY ';'
+ENCLOSED BY '' 
+LINES TERMINATED BY '\r\n';
+INSERT INTO lignecommande(idLigne, idCom, idArticle, largeur, nbCouleurs, modele, refPantones, nbBobines, metreTotal, couleurs, aplat, nbLangues, variete, calibre, poids, origine, traitement, categorie, pointVert, numLot, codeBarre, etiquetteTotal) VALUES(1, 1, 1, 12.3, 5, 'modele 1', 'refPantones 1', 6, 8.5, 'couleurs 1', 'aplat 1', 3, 'variete 1', 'calibre 1', 'poids 1', 'origine 1', 0, 'categ 1', 0, 'numLot 1', 'codeBarre 1', 22.2);
+INSERT INTO lignecommande(idLigne, idCom, idArticle, largeur, nbCouleurs, modele, refPantones, nbBobines, metreTotal, couleurs, aplat, nbLangues, variete, calibre, poids, origine, traitement, categorie, pointVert, numLot, codeBarre, etiquetteTotal) VALUES(2, 2, 2, 11.5, 5, 'modele 2', 'refPantones 2', 7, 9.5, 'couleurs 2', 'aplat 2', 3, 'variete 2', 'calibre 2', 'poids 2', 'origine 2', 1, 'categ 2', 1, 'numLot 2', 'codeBarre 2', 33.3);
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+---------- Merci de spécifier le chemin d'accès du fichier articlesmodif.csv à la ligne 11 -------------
+---------------------------------------------------------------------------------------------------------

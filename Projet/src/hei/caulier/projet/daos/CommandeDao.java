@@ -99,4 +99,18 @@ public class CommandeDao {
         }
         return null;
     }
+	
+	public Integer getNewCommandeId() {
+        try {
+        	Connection connection = DataSourceProvider.getDataSource().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM commande ORDER BY idCom DESC LIMIT 1");
+            while (resultSet.next()) {
+                return resultSet.getInt("idCom");
+            }
+        } catch (SQLException e) {
+            throw new ProjectRuntimeException("Erreur en essayant d'obtenir l'id de la derniere commande", e);
+        }
+		return null;
+	}
 }

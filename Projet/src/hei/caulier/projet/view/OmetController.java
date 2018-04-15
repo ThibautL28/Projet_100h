@@ -175,9 +175,8 @@ public class OmetController {
 
 	@FXML
 	private void handleCreatePDF() {
+		SaveToDbOmet();
 		PDFGenerator_Omet.createPDF();
-		System.out.println(combo.getValue());
-		//SaveToDbOmet();
 	}
 	
 	private void SaveToDbOmet() {

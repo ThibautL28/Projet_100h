@@ -29,6 +29,10 @@ public class CommandeService {
     public Integer getCommandeId(Commande commande) {
         return commandeDao.getCommandeId(commande);
     }
+    
+    public Integer getNewCommandeId() {
+    	return commandeDao.getNewCommandeId();
+    }
 
 
     public void addCommande(Commande newCommande) {

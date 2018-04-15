@@ -78,14 +78,4 @@ public class ClientDao {
 	        return null;
 	    }
 	 
-	 /*public void deleteClient(Integer idClient) {
-	        String query = "UPDATE jeu SET deleted=true WHERE idJeu=?";
-	        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-	             PreparedStatement statement = connection.prepareStatement(query)) {
-	            statement.setInt(1, idJeu);
-	            statement.executeUpdate();
-	        } catch (SQLException e) {
-	            throw new GamindexRuntimeException("Erreur lors de la recuperation des jeux", e);
-	        }
-	    }*/
 }

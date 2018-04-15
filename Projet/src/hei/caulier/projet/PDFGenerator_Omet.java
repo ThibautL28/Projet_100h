@@ -27,12 +27,37 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import hei.caulier.projet.entities.Commande;
+import hei.caulier.projet.entities.LigneCommande;
+import hei.caulier.services.ClientService;
+import hei.caulier.services.CommandeService;
+import hei.caulier.services.LigneCommandeService;
+
 public class PDFGenerator_Omet {
 	private static String FILE = "C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf";
     
 
     public static void createPDF() {
         try {
+        	Integer newCommandeId = CommandeService.getInstance().getNewCommandeId();
+        	Commande newCommande = CommandeService.getInstance().getCommande(newCommandeId);
+        	LigneCommande newLigneCommande1 = LigneCommandeService.getInstance().listLignesCommande(newCommandeId).get(0);
+        	Boolean OnlyOneLigneCommande = true;
+        	LigneCommande newLigneCommande2 = new LigneCommande(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,null, null, null, null, null, null);
+        	if (LigneCommandeService.getInstance().listLignesCommande(newCommandeId).size()==2) {
+        		newLigneCommande2 = LigneCommandeService.getInstance().listLignesCommande(newCommandeId).get(1);
+        		OnlyOneLigneCommande = false;
+        	}
+        	String coteimpression = "";
+        	if (newCommande.getCoteImpression()==1) {
+				coteimpression = "RECTO";
+			}
+        	if (newCommande.getCoteImpression()==2) {
+				coteimpression = "RECTO/VERSO";
+			}
+        	if (newCommande.getCoteImpression()==3) {
+				coteimpression = "VERSO";
+			}
         	File destination = new File("C:\\AppBonsFab\\Omet"); 
         	destination.mkdirs();
             Document document = new Document(PageSize.A4.rotate(),5,5,5,5);
@@ -55,25 +80,25 @@ public class PDFGenerator_Omet {
             
             
             //infos à compléter depuis BDD
-            PdfPCell cell = new PdfPCell(new Phrase("DATE : "  + " test date ", f));
+            PdfPCell cell = new PdfPCell(new Phrase("DATE : "  + String.valueOf(newCommande.getDateCom()), f));
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("DEPART : " + " test départ", f));            
+            cell = new PdfPCell(new Phrase("DEPART : " + String.valueOf(newCommande.getDepart()), f));            
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "ETIQUETTES", f_b));            
+            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + String.valueOf(newCommande.getTypeImpression()), f_b));            
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("MODE DE LIVRAISON : " + "test de mode de livraison", f)); 
+            cell = new PdfPCell(new Phrase("MODE DE LIVRAISON : " + String.valueOf(newCommande.getModeLivraison()), f)); 
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             
             cell.setRowspan(2);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("CLIENT : " + "test de client", f));            
+            cell = new PdfPCell(new Phrase("CLIENT : " + String.valueOf(ClientService.getInstance().getClient(newCommande.getAdresse().getClient().getIdClient()).getNomClient()), f));            
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("ADRESSE LIVRAISON : " + "test d'une adresse de livraison aléatoire", f));
+            cell = new PdfPCell(new Phrase("ADRESSE LIVRAISON : " + String.valueOf(newCommande.getAdresse().getAdresseClient()), f));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setColspan(2);
             table.addCell(cell);
@@ -135,33 +160,33 @@ public class PDFGenerator_Omet {
             canvas.restoreState();
             
            //remplir sens impression
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("SENS D'IMPRESSION : " +"1" +  ", " +" 5",f), 300, 465, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("SENS D'IMPRESSION : " + String.valueOf(newCommande.getSensImpressionRecto()) +  ", " + String.valueOf(newCommande.getSensImpressionVerso()),f), 300, 465, 0);
             
             
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("MATIERE : " +"DIVIPA THERM 220µ",f_b), 250, 375, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("MATIERE : " + String.valueOf(newCommande.getMatiere()),f_b), 250, 375, 0);
             
             
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Observations : " ,f), 20, 320, 0);
             //création d'une case observations
             PdfPTable obs = new PdfPTable(1);
             //remplir infos observations
-            PdfPCell obscell = new PdfPCell(new Phrase("observations aléatoires pour tester le comportement de la case contenant ces observations ", f));
+            PdfPCell obscell = new PdfPCell(new Phrase(String.valueOf(newCommande.getObservations()), f));
             obs.addCell(obscell);
             obs.setTotalWidth(280);
             obs.writeSelectedRows(0,1, 120, 330, canvas);
             
             //la case bobine et ses infos à remplir
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Bobine : ",f_u), 10, 507, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Nb étiquettes : " +"15 1515",f), 10, 490, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Mandrin : " +"15 1515",f), 10, 470, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Ext. Bob. : " +"15 1515",f), 10, 450, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f_i), 10, 430, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Cliché : " +"test ",f_i), 10, 410, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Nb étiquettes : " + String.valueOf(newCommande.getNbEtiquettes()),f), 10, 490, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Mandrin : " + String.valueOf(newCommande.getDiamMandrin()),f), 10, 470, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Ext. Bob. : " + String.valueOf(newCommande.getDiamExtBobine()),f), 10, 450, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " + String.valueOf(newCommande.getDeveloppement()),f_i), 10, 430, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Cliché : " + String.valueOf(newCommande.getCliche()),f_i), 10, 410, 0);
             
             //infos à remplir
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Recto : Matière : " +"cela est un test de matière",f), 150, 170, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Verso : Matière : " +"cela est un autre test",f), 150, 140, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("RECTO/VERSO" ,f_b), 440, 150, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Recto : Matière : " + String.valueOf(newCommande.getRectoMatiere()),f), 150, 170, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Verso : Matière : " + String.valueOf(newCommande.getVersoMatiere()),f), 150, 140, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(coteimpression,f_b), 440, 150, 0);
             
             
           //création d'une case code achat
@@ -170,7 +195,7 @@ public class PDFGenerator_Omet {
             PdfPCell acell = new PdfPCell(new Phrase("CODE ACHAT : ", f));
             tableCAchat.addCell(acell);
             
-            acell = new PdfPCell(new Phrase("25418 515", f));
+            acell = new PdfPCell(new Phrase(String.valueOf(newCommande.getCodeAchat()), f));
             tableCAchat.addCell(acell);
             
             tableCAchat.setTotalWidth(120);
@@ -241,25 +266,25 @@ public class PDFGenerator_Omet {
             tabbas.addCell(cbas);
             
             //2e ligne
-            cbas = new PdfPCell(new Phrase("15989 59 4 951 959 FAP", f)); //CODE
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getArticle().getRefArticle()), f)); //CODE
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("24789", f)); //LARG
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getLargeur()), f)); //LARG
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("6497", f)); //NBRE COULEURS
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getNbCouleurs()), f)); //NBRE COULEURS
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("ici MODELE relativement long", f)); //MODELE
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getModele()), f)); //MODELE
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase(" ici REFERENCE relativement longue", f)); //REF PANTONE
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getRefPantones()), f)); //REF PANTONE
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("648795", f)); //B
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getNbBobines()), f)); //B
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("878666000", f)); //M
+            cbas = new PdfPCell(new Phrase(String.valueOf(newLigneCommande1.getMetreTotal()), f)); //M
             tabbas.addCell(cbas);
             
             cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
@@ -275,25 +300,25 @@ public class PDFGenerator_Omet {
             tabbas.addCell(cbas);
             
             //3e ligne
-            cbas = new PdfPCell(new Phrase("159 51 5 1 95 15 5995 DEZ", f)); //CODE 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getArticle().getRefArticle()), f)); //CODE 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("18558", f)); //LARG 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getLargeur()), f)); //LARG 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("752", f)); //NBRE COULEURS 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getNbCouleurs()), f)); //NBRE COULEURS 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase(" ici MODELE long", f)); //MODELE 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getModele()), f)); //MODELE 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("ici REFERENCE longue", f)); //REF PANTONE 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getRefPantones()), f)); //REF PANTONE 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase(" 150 000", f)); //B 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getNbBobines()), f)); //B 2
             tabbas.addCell(cbas);
             
-            cbas = new PdfPCell(new Phrase("800 000 000", f)); //METRES 2
+            cbas = new PdfPCell(new Phrase(OnlyOneLigneCommande == true ? "" : String.valueOf(newLigneCommande2.getEtiquetteTotal()), f)); //METRES 2
             tabbas.addCell(cbas);
             
             cbas = new PdfPCell(new Phrase(" ", f)); //rien à remplir
