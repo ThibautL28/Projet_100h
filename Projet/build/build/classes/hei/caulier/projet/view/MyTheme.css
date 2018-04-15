@@ -1,0 +1,36 @@
+
+.black-separator .line {
+	-fx-border-style: solid;
+ 	-fx-border-color: black ;
+	-fx-border-width: 0 0 2 2 ;
+}
+
+.red-separator .line {
+  	-fx-border-style: solid;
+ 	-fx-border-color: red ;
+	-fx-border-width: 0 0 2 2 ;
+}
+
+.yellow-separator .line {
+  	-fx-border-style: solid;
+ 	-fx-border-color: yellow ;
+	-fx-border-width: 0 0 2 2 ;
+}
+
+.lightgreen-separator .line {
+  	-fx-border-style: solid;
+ 	-fx-border-color: lightgreen ;
+	-fx-border-width: 0 0 2 2 ;
+}
+
+.lightblue-separator .line {
+  	-fx-border-style: solid;
+ 	-fx-border-color: lightblue ;
+	-fx-border-width: 0 0 2 2 ;
+}
+
+.blue-separator .line {
+  	-fx-border-style: solid;
+ 	-fx-border-color: blue ;
+	-fx-border-width: 0 0 2 2 ;
+}

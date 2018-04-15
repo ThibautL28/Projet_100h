@@ -3,8 +3,8 @@
 	<target name="init-fx-tasks">
 		<path id="fxant">
 			<filelist>
-				<file name="C:\Program Files\Java\jdk1.8.0_20\lib\ant-javafx.jar"/>
-				<file name="C:\Program Files\Java\jre1.8.0_20\lib\ext\jfxrt.jar"/>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
 				<file name="${basedir}"/>
 			</filelist>
 		</path>
@@ -193,7 +193,7 @@
 		<fx:application id="fxApplication"
 			name="BonsFab"
 			mainClass="hei.caulier.projet.MainApp"
-			version="1.2"
+			version="1.3"
 		/>
 	
 		<mkdir dir="build/classes/META-INF" />
@@ -209,7 +209,7 @@
 			<manifest>
 				<attribute name="Implementation-Vendor" value="caulier_lamonier"/>
 				<attribute name="Implementation-Title" value="BonsFab"/>
-				<attribute name="Implementation-Version" value="1.2"/>
+				<attribute name="Implementation-Version" value="1.3"/>
 				<attribute name="JavaFX-Feature-Proxy" value="None"/>
 			</manifest>
 		</fx:jar>

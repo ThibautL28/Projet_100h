@@ -1,0 +1,112 @@
+CREATE SCHEMA `projetCaulierLamonier` ;
+
+CREATE TABLE `projetCaulierLamonier`.`client` (
+  `idClient` INT NOT NULL AUTO_INCREMENT,
+  `nomClient` VARCHAR(70) NULL,
+  PRIMARY KEY (`idClient`));
+
+CREATE TABLE `projetCaulierLamonier`.`adresse` (
+  `idAdresse` INT NOT NULL AUTO_INCREMENT,
+  `idClient` INT NULL,
+  `adresseClient` VARCHAR(100) NULL,
+  PRIMARY KEY (`idAdresse`),
+  INDEX `FK_idClient_idx` (`idClient` ASC),
+  CONSTRAINT `FK_idClient`
+    FOREIGN KEY (`idClient`)
+    REFERENCES `projetCaulierLamonier`.`client` (`idClient`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+CREATE TABLE `projetCaulierLamonier`.`machine` (
+`idMachine` INT NOT NULL AUTO_INCREMENT,
+`nomMachine` VARCHAR(20) NULL,
+PRIMARY KEY (`idMachine`));
+
+CREATE TABLE `projetCaulierLamonier`.`commande` (
+  `idCom` INT NOT NULL AUTO_INCREMENT,
+  `idAdresse` INT NULL,
+  `idMachine` INT NULL,
+  `dateCom` DATE NULL,
+  `depart` VARCHAR(50) NULL,
+  `codeAchat` INT NULL,
+  `modeLivraison` VARCHAR(50) NULL,
+  `typeImpression` VARCHAR(50) NULL,
+  `sensImpressionRecto` INT NULL,
+  `sensImpressionVerso` INT NULL,
+  `tailleBobine` FLOAT NULL,
+  `diamMandrin` FLOAT NULL,
+  `diamExtBobine` FLOAT NULL,
+  `developpement` VARCHAR(40) NULL,
+  `cliche` VARCHAR(40) NULL,
+  `epaisseur` FLOAT NULL,
+  `matiere` VARCHAR(40) NULL,
+  `observations` VARCHAR(500) NULL,
+  `nbEtiquettes` INT NULL,
+  `rectoMatiere` VARCHAR(30) NULL,
+  `versoMatiere` VARCHAR(30) NULL,
+  `matiereImpression` VARCHAR(30) NULL,
+  `matiereCollage` VARCHAR(30) NULL,
+  `decoupe` VARCHAR(30) NULL,
+  `coteImpression` INT NULL,
+  PRIMARY KEY (`idCom`));
+
+ALTER TABLE `projetCaulierLamonier`.`commande` 
+ADD INDEX `FK_idAdresse_idx` (`idAdresse` ASC);
+ALTER TABLE `projetCaulierLamonier`.`commande` 
+ADD CONSTRAINT `FK_idAdresse`
+  FOREIGN KEY (`idAdresse`)
+  REFERENCES `projetCaulierLamonier`.`adresse` (`idAdresse`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `projetCaulierLamonier`.`commande` 
+ADD INDEX `FK_idMachine_idx` (`idMachine` ASC);
+ALTER TABLE `projetCaulierLamonier`.`commande` 
+ADD CONSTRAINT `FK_idMachine`
+  FOREIGN KEY (`idMachine`)
+  REFERENCES `projetCaulierLamonier`.`machine` (`idMachine`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+CREATE TABLE `projetCaulierLamonier`.`article` (
+  `idArticle` INT NOT NULL AUTO_INCREMENT,
+  `refArticle` VARCHAR(50) NULL,
+  `nomArticle` VARCHAR(100) NULL,
+  PRIMARY KEY (`idArticle`));
+
+CREATE TABLE `projetCaulierLamonier`.`lignecommande` (
+  `idLigne` INT NOT NULL AUTO_INCREMENT,
+  `idCom` INT NULL,
+  `idArticle` INT NULL,
+  `largeur` FLOAT NULL,
+  `nbCouleurs` INT NULL,
+  `modele` VARCHAR(50) NULL,
+  `refPantones` VARCHAR(50) NULL,
+  `nbBobines` INT NULL,
+  `metreTotal` FLOAT NULL,
+  `couleurs` VARCHAR(50) NULL,
+  `aplat` VARCHAR(30) NULL,
+  `nbLangues` INT NULL,
+  `variete` VARCHAR(50) NULL,
+  `calibre` VARCHAR(20) NULL,
+  `poids` VARCHAR(20) NULL,
+  `origine` VARCHAR(20) NULL,
+  `traitement` BIT(1) NULL,
+  `categorie` VARCHAR(20) NULL,
+  `pointVert` BIT(1) NULL,
+  `numLot` VARCHAR(30) NULL,
+  `codeBarre` VARCHAR(30) NULL,
+  `etiquetteTotal` FLOAT NULL,
+  PRIMARY KEY (`idLigne`),
+  INDEX `FK_idCom_idx` (`idCom` ASC),
+  INDEX `FK_idArticle_idx` (`idArticle` ASC),
+  CONSTRAINT `FK_idCom`
+    FOREIGN KEY (`idCom`)
+    REFERENCES `projetCaulierLamonier`.`commande` (`idCom`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `FK_idArticle`
+    FOREIGN KEY (`idArticle`)
+    REFERENCES `projetCaulierLamonier`.`article` (`idArticle`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
