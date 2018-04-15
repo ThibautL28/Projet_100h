@@ -177,7 +177,7 @@ public class OmetController {
 	private void handleCreatePDF() {
 		PDFGenerator_Omet.createPDF();
 		System.out.println(combo.getValue());
-		SaveToDbOmet();
+		//SaveToDbOmet();
 	}
 	
 	private void SaveToDbOmet() {

@@ -35,32 +35,24 @@ import javafx.scene.text.TextAlignment;
 
 public class PDFGenerator_Flexo {
     private static String FILE = "C:\\AppBonsFab\\Flexo\\Pdf_Flexo.pdf";
-    
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
 
-    public static void createPDF(String oui) {
+
+    public static void createPDF(String test) {
         try {
         	File destination = new File("C:\\AppBonsFab\\Flexo"); 
         	destination.mkdirs();
             Document document = new Document(PageSize.A4.rotate(),5,5,5,5);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
+            addMetaData(document);
             
             //définition des polices
-            Font f1=new Font(FontFamily.UNDEFINED,15f,Font.NORMAL,BaseColor.BLACK);
             Font f=new Font(FontFamily.TIMES_ROMAN,15f,Font.NORMAL,BaseColor.BLACK);
             Font f_u=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE,BaseColor.BLACK);
             Font f_bu=new Font(FontFamily.TIMES_ROMAN,15f,Font.UNDERLINE|Font.BOLD,BaseColor.BLACK);
             Font f_b=new Font(FontFamily.TIMES_ROMAN,14f,Font.BOLD,BaseColor.BLACK);
+            Font f_i=new Font(FontFamily.TIMES_ROMAN,14f,Font.ITALIC,BaseColor.BLACK);
             
-            BaseFont bf_f = f.getCalculatedBaseFont(false);
             
             PdfPTable table = new PdfPTable(4);
             table.setWidths(new int[]{ 1, 1, 2, 2});
@@ -75,7 +67,7 @@ public class PDFGenerator_Flexo {
             cell = new PdfPCell(new Phrase("DEPART : " + " test départ", f));            
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "POLYFILM NON COMPLEXE", f));            
+            cell = new PdfPCell(new Phrase("TYPE IMPRESSION : " + "POLYFILM NON COMPLEXE", f_b));            
             table.addCell(cell);
             
             cell = new PdfPCell(new Phrase("MODE DE LIVRAISON : " + "test de mode de livraison", f)); 
@@ -162,7 +154,7 @@ public class PDFGenerator_Flexo {
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Mètres : " +"15 1515",f), 10, 490, 0);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Mandrin : " +"15 1515",f), 10, 470, 0);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Diam. Ext. Bob. : " +"15 1515",f), 10, 450, 0);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f), 10, 430, 0);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Développement : " +"test ",f_i), 10, 430, 0);
             
             //infos à remplir
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("MATIERE IMPRESSION : " +"cela est un test de matière",f), 10, 170, 0);
@@ -331,9 +323,9 @@ public class PDFGenerator_Flexo {
         				
         		} else {
 
-        			System.out.println("File is not exists");
+        			System.out.println("File do not exists");
         		}
-        		System.out.println("Done");
+        		System.out.println("PDF done");
 
         	  } catch (Exception ex) {
       		ex.printStackTrace();
@@ -344,8 +336,7 @@ public class PDFGenerator_Flexo {
         }
     }
 
-    // iText allows to add metadata to the PDF which can be viewed in your Adobe
-    // Reader
+    // iText allows to add metadata to the PDF which can be viewed in your Adobe Reader
     // under File -> Properties
     private static void addMetaData(Document document) {
     	document.addTitle("Bon de fabrication");
@@ -353,21 +344,5 @@ public class PDFGenerator_Flexo {
         document.addKeywords("Java, PDF, iText");
         document.addAuthor("CAULIER");
         document.addCreator("CAULIER");
-    }
-
-    
-
-    private static void createList(Section subCatPart) {
-        List list = new List(true, false, 10);
-        list.add(new ListItem("First point"));
-        list.add(new ListItem("Second point"));
-        list.add(new ListItem("Third point"));
-        subCatPart.add(list);
-    }
-
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
-        }
     }
 }
