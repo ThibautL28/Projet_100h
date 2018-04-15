@@ -24,7 +24,6 @@ import hei.caulier.services.CommandeService;
 import hei.caulier.services.LigneCommandeService;
 
 public class PDFGenerator_Omet {
-	private static String FILE = "C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf";
     
 
     public static void createPDF() {
@@ -38,6 +37,7 @@ public class PDFGenerator_Omet {
         		newLigneCommande2 = LigneCommandeService.getInstance().listLignesCommande(newCommandeId).get(1);
         		OnlyOneLigneCommande = false;
         	}
+        	String FILE = "C:\\AppBonsFab\\Omet\\Pdf_Omet_"+newCommande.getIdCom()+".pdf";
         	String coteimpression = "";
         	if (newCommande.getCoteImpression()==1) {
 				coteimpression = "RECTO";
@@ -331,11 +331,11 @@ public class PDFGenerator_Omet {
             
             try {
 
-        		if ((new File("C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf")).exists()) {
+        		if ((new File("C:\\AppBonsFab\\Omet\\Pdf_Omet_"+newCommande.getIdCom()+".pdf")).exists()) {
 
         			Process p = Runtime
         			   .getRuntime()
-        			   .exec("rundll32 url.dll,FileProtocolHandler C:\\AppBonsFab\\Omet\\Pdf_Omet.pdf");
+        			   .exec("rundll32 url.dll,FileProtocolHandler C:\\AppBonsFab\\Omet\\Pdf_Omet_"+newCommande.getIdCom()+".pdf");
         			p.waitFor();
         				
         		} else {
